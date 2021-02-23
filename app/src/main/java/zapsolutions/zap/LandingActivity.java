@@ -37,7 +37,7 @@ public class LandingActivity extends BaseAppCompatActivity {
             Uri uri = intent.getData();
             App.getAppContext().setUriSchemeData(uri.toString());
             ZapLog.d(LOG_TAG, "URI was detected: " + uri.toString());
-            if (!WalletConfigsManager.getInstance().hasAnyConfigs() && UriUtil.isLNDConnectUri(App.getAppContext().getUriSchemeData())) {
+            if (UriUtil.isLNDConnectUri(App.getAppContext().getUriSchemeData())) {
                 setupWalletFromUri();
                 return;
             }
@@ -47,7 +47,7 @@ public class LandingActivity extends BaseAppCompatActivity {
         if (NfcAdapter.ACTION_NDEF_DISCOVERED.equals(intent.getAction())) {
 
             NfcUtil.readTag(LandingActivity.this, intent, payload -> App.getAppContext().setUriSchemeData(payload));
-            if (!WalletConfigsManager.getInstance().hasAnyConfigs() && UriUtil.isLNDConnectUri(App.getAppContext().getUriSchemeData())) {
+            if (UriUtil.isLNDConnectUri(App.getAppContext().getUriSchemeData())) {
                 setupWalletFromUri();
                 return;
             }
